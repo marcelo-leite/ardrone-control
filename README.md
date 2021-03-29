@@ -1,1 +1,1 @@
-# Ardrone Control - API Unofficial Ardrone SDK for Arduino ESP-8266
+# API Ardrone Control for Arduino ESP-8266
