@@ -8,32 +8,37 @@ String check = "";
 int len = sizeof(ardata_t);
 
 void rfdata();
+void rfCommand();
+void comannd_switch(char cmd[]);
 
 void setup() {
   Serial.begin(57600);
   
-  ardrone.ArdroneConnect();
+  // ardrone.ArdroneConnect();
   
 }
 
 void loop() {
-  while (WiFi.status() == WL_CONNECTED) {
-      rfdata();
+  // while (WiFi.status() == WL_CONNECTED) {
+      // rfdata();
+      rfCommand();
 
       // ardrone.navData();
       // ardrone.VideoStream();
       // data = ardrone.get_ardata();
       // Serial.println(data.fligth_data.nbsat);
-      delay(20);
-  }
+  //     delay(20);
+  // }
     
-  Serial.println("disconnected from AR, attempting to reconnect");
-  ardrone.ArdroneConnect();
+  // Serial.println("disconnected from AR, attempting to reconnect");
+  // ardrone.ArdroneConnect();
 }
 
 
 
 void rfdata(){
+
+
     check = "";
     ardrone.navData();
     // ardrone.VideoStream();
@@ -87,4 +92,100 @@ void rfdata(){
       // Serial.flush();
       
       delay(100);
+}
+
+
+
+typedef struct{
+  
+  char ass[3];
+  uint8_t size;
+  char buffer[40];
+
+} rfdata_t;
+
+void rfCommand(){
+
+    rfdata_t command;
+    int i = 0;
+    int j = 0;
+    int n = 0;
+    char temp;
+    char size[4];
+    char ass[4] = "CMD";
+
+    while (true){
+      if(i < 3){
+        if(Serial.available()){
+          temp = Serial.read();
+          if( temp == ass[i] ){
+            command.ass[i] = temp;
+            i++;
+          }else{
+            i = 0;
+          }
+          
+        }
+        
+
+      }else{
+        j = 0;
+        while (true){
+          if(j < 1){
+            if(Serial.available()){
+              size[j] = Serial.read();
+              j++;
+            }
+          }else{
+            break;
+          }
+        }
+
+        
+
+        command.size = *((uint8_t*)&size[0]);
+        // memcpy(&command.size, &size[0], sizeof(command.size));
+        Serial.println(command.size);
+
+        if(command.size >= 4 && command.size <= 30){
+          int k = 0;
+          while (true){
+            if(k < command.size){
+              if(Serial.available()){
+                command.buffer[k] = Serial.read();
+                k++;
+              }
+            }else{
+              comannd_switch(command.buffer);
+              break;
+            }
+          }
+          
+        }
+        
+        break;
+      }
+    }
+      
+    
+}
+
+void comannd_switch(char cmd[]){
+    String type;
+    int i = 0;
+    for(i = 0; i < 4; i++){
+      type.concat(cmd[i]);
+    }
+
+
+    if(type == "TAKE"){
+      Serial.println("Decolando");
+
+    }else if(type == "LAND"){
+      Serial.println("Aterrissando");
+
+    }else if(type == "PCMD"){
+      Serial.println("Controle");
+    }
+
 }
