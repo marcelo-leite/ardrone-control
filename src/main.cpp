@@ -12,26 +12,27 @@ void rfCommand();
 void comannd_switch(char cmd[]);
 
 void setup() {
-  Serial.begin(57600);
+  Serial.begin(56700);
   
-  // ardrone.ArdroneConnect();
+  ardrone.ArdroneConnect();
   
 }
 
 void loop() {
-  // while (WiFi.status() == WL_CONNECTED) {
-      // rfdata();
-      rfCommand();
-
+  while (WiFi.status() == WL_CONNECTED) {
+      rfdata();
+      if(Serial.available()){
+        rfCommand();
+      }
       // ardrone.navData();
       // ardrone.VideoStream();
       // data = ardrone.get_ardata();
       // Serial.println(data.fligth_data.nbsat);
   //     delay(20);
-  // }
+  }
     
-  // Serial.println("disconnected from AR, attempting to reconnect");
-  // ardrone.ArdroneConnect();
+  Serial.println("disconnected from AR, attempting to reconnect");
+  ardrone.ArdroneConnect();
 }
 
 
@@ -172,6 +173,7 @@ void rfCommand(){
 
 void comannd_switch(char cmd[]){
     String type;
+    float v[4];
     int i = 0;
     for(i = 0; i < 4; i++){
       type.concat(cmd[i]);
@@ -179,12 +181,31 @@ void comannd_switch(char cmd[]){
 
 
     if(type == "TAKE"){
+      ardrone.takeoff();
       Serial.println("Decolando");
 
     }else if(type == "LAND"){
+      ardrone.land();
       Serial.println("Aterrissando");
 
     }else if(type == "PCMD"){
+      char vbuffer[16];
+      int p;
+      for(i = 0; i < 16; i++){
+        
+        vbuffer[i] = cmd[i + 4];
+      }
+      // memcpy(&v[0], &vbuffer[0], sizeof(v));
+      v[0] = *((float*)&vbuffer[0]);
+      v[1] = *((float*)&vbuffer[4]);
+      v[2] = *((float*)&vbuffer[8]);
+      v[3] = *((float*)&vbuffer[12]);
+      // Serial.println(v[0]);
+      // Serial.println(v[1]);
+      // Serial.println(v[2]);
+      // Serial.println(v[3]);
+      ardrone.pcmdCommand(true, v);
+      
       Serial.println("Controle");
     }
 
