@@ -355,7 +355,7 @@ class ArdroneControl{
             this->navdata.block.navdata_references = *((navdata_references_t*)&block[4]);
             break;
           case 7:
-            navdata.block.navdata_trims = *((navdata_trims_t*)&block[4]);
+            this->navdata.block.navdata_trims = *((navdata_trims_t*)&block[4]);
             break;
           case 8:
             this->navdata.block.navdata_rc_references = *((navdata_rc_references_t*)&block[4]);
