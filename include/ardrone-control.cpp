@@ -50,7 +50,7 @@ class ArdroneControl{
     
     
     // ardate.s
-    // ardata.navdata_demo = navdata.block.navdata_demo;
+    // ardata.navdata_demo = this->navdata.block.navdata_demo;
     // ardata.video_data = pave;
     
     
@@ -76,11 +76,11 @@ class ArdroneControl{
 
       
       // ardata.fligth_data = &fligth_data;
-      // ardata.fligth_data->baterry = &navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &navdata.block.navdata_demo.baterry;
+      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
+      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
+      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
+      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
+      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
       
 
 
@@ -294,15 +294,15 @@ class ArdroneControl{
     }
     
     bool land(){
-      return refCommand(false, false);
+      return this->refCommand(false, false);
     }
     
     bool takeoff(){
-      return refCommand(true, false);
+      return this->refCommand(true, false);
     }
     
     bool emergency(){
-      return refCommand(false, true);
+      return this->refCommand(false, true);
     }
 
     void navData(){
@@ -324,146 +324,146 @@ class ArdroneControl{
       for(uint16_t i = 0; i < 28; i++){
         
         for(uint16_t j = 0; j <= *this->navdata.siz; j++){
-          block[j] = incoming[k + j];
+          this->block[j] = this->incoming[k + j];
           
         }
-        this->navdata.id = (uint16_t*)&block[0];
-        this->navdata.siz = (uint16_t*)&block[2];
+        this->navdata.id = (uint16_t*)&this->block[0];
+        this->navdata.siz = (uint16_t*)&this->block[2];
         k += *this->navdata.siz;
     
         switch (*this->navdata.id){
           
           case 0:
-            this->navdata.block.navdata_demo = *((navdata_demo_t*)&block[4]);
+            this->navdata.block.navdata_demo = *((navdata_demo_t*)&this->block[4]);
             break;
           case 1:
-            this->navdata.block.navdata_time = *((navdata_time_t*)&block[4]);
+            this->navdata.block.navdata_time = *((navdata_time_t*)&this->block[4]);
             break;
           case 2:
-            this->navdata.block.navdata_raw_measures = *((navdata_raw_measures_t*)&block[4]);
+            this->navdata.block.navdata_raw_measures = *((navdata_raw_measures_t*)&this->block[4]);
             break;
           case 3:
-            this->navdata.block.navdata_phys_measures = *((navdata_phys_measures_t*)&block[4]);
+            this->navdata.block.navdata_phys_measures = *((navdata_phys_measures_t*)&this->block[4]);
             break;
           case 4:
-            this->navdata.block.navdata_gyros_offsets = *((navdata_gyros_offsets_t*)&block[4]);
+            this->navdata.block.navdata_gyros_offsets = *((navdata_gyros_offsets_t*)&this->block[4]);
             break;
           case 5:
-            this->navdata.block.navdata_euler_angles = *((navdata_euler_angles_t*)&block[4]);
+            this->navdata.block.navdata_euler_angles = *((navdata_euler_angles_t*)&this->block[4]);
             break;
           case 6:
-            this->navdata.block.navdata_references = *((navdata_references_t*)&block[4]);
+            this->navdata.block.navdata_references = *((navdata_references_t*)&this->block[4]);
             break;
           case 7:
-            this->navdata.block.navdata_trims = *((navdata_trims_t*)&block[4]);
+            this->navdata.block.navdata_trims = *((navdata_trims_t*)&this->block[4]);
             break;
           case 8:
-            this->navdata.block.navdata_rc_references = *((navdata_rc_references_t*)&block[4]);
+            this->navdata.block.navdata_rc_references = *((navdata_rc_references_t*)&this->block[4]);
             break;
           case 9:
-            this->navdata.block.navdata_pwm = *((navdata_pwm_t*)&block[4]);
+            this->navdata.block.navdata_pwm = *((navdata_pwm_t*)&this->block[4]);
             break;
           case 10:
-            this->navdata.block.navdata_altitude = *((navdata_altitude_t*)&block[4]);
+            this->navdata.block.navdata_altitude = *((navdata_altitude_t*)&this->block[4]);
             break;
           case 11:
-            this->navdata.block.navdata_vision_raw = *((navdata_vision_raw_t*)&block[4]);
+            this->navdata.block.navdata_vision_raw = *((navdata_vision_raw_t*)&this->block[4]);
             break;
           case 12:
-            this->navdata.block.navdata_vision_of = *((navdata_vision_of_t*)&block[4]);
+            this->navdata.block.navdata_vision_of = *((navdata_vision_of_t*)&this->block[4]);
             break;
           case 13:
-            this->navdata.block.navdata_vision = *((navdata_vision_t*)&block[4]);
+            this->navdata.block.navdata_vision = *((navdata_vision_t*)&this->block[4]);
             break;
           case 14:
-            this->navdata.block.navdata_vision_perf = *((navdata_vision_perf_t*)&block[4]);
+            this->navdata.block.navdata_vision_perf = *((navdata_vision_perf_t*)&this->block[4]);
             break;
           case 15:
-            this->navdata.block.navdata_trackers_send = *((navdata_trackers_send_t*)&block[4]);
+            this->navdata.block.navdata_trackers_send = *((navdata_trackers_send_t*)&this->block[4]);
             break;
           case 16:
-            this->navdata.block.navdata_vision_detect = *((navdata_vision_detect_t*)&block[4]);
+            this->navdata.block.navdata_vision_detect = *((navdata_vision_detect_t*)&this->block[4]);
             break;
           case 17:
-            this->navdata.block.navdata_watchdog = *((navdata_watchdog_t*)&block[4]);
+            this->navdata.block.navdata_watchdog = *((navdata_watchdog_t*)&this->block[4]);
             break;
           case 18:
-            this->navdata.block.navdata_adc_data_frame = *((navdata_adc_data_frame_t*)&block[4]);
+            this->navdata.block.navdata_adc_data_frame = *((navdata_adc_data_frame_t*)&this->block[4]);
             break;
           case 19:
-            this->navdata.block.navdata_video_stream = *((navdata_video_stream_t*)&block[4]);
+            this->navdata.block.navdata_video_stream = *((navdata_video_stream_t*)&this->block[4]);
             break;
           case 20:
-            this->navdata.block.navdata_games = *((navdata_games_t*)&block[4]);
+            this->navdata.block.navdata_games = *((navdata_games_t*)&this->block[4]);
             break;
           case 21:
-            this->navdata.block.navdata_pressure_raw = *((navdata_pressure_raw_t*)&block[4]);
+            this->navdata.block.navdata_pressure_raw = *((navdata_pressure_raw_t*)&this->block[4]);
             break;
           case 22:
-            this->navdata.block.navdata_magneto = *((navdata_magneto_t*)&block[4]);
+            this->navdata.block.navdata_magneto = *((navdata_magneto_t*)&this->block[4]);
             break;
           case 23:
-            this->navdata.block.navdata_wind_speed = *((navdata_wind_speed_t*)&block[4]);
+            this->navdata.block.navdata_wind_speed = *((navdata_wind_speed_t*)&this->block[4]);
             break;
           case 24:
-            this->navdata.block.navdata_kalman_pressure = *((navdata_kalman_pressure_t*)&block[4]);
+            this->navdata.block.navdata_kalman_pressure = *((navdata_kalman_pressure_t*)&this->block[4]);
             break;
           case 25:
-            this->navdata.block.navdata_hdvideo_stream = *((navdata_hdvideo_stream_t*)&block[4]);
+            this->navdata.block.navdata_hdvideo_stream = *((navdata_hdvideo_stream_t*)&this->block[4]);
             break;
           case 26:
-            this->navdata.block.navdata_wifi = *((navdata_wifi_t*)&block[4]);
+            this->navdata.block.navdata_wifi = *((navdata_wifi_t*)&this->block[4]);
             break;
           case 27:
-            this->navdata.block.navdata_gps = *((navdata_gps_t*)&block[4]);
+            this->navdata.block.navdata_gps = *((navdata_gps_t*)&this->block[4]);
             break;
           default:
             break;
         }
       }
-        this->ardata.fligth_data.sequence = navdata.sequence;
-        this->ardata.fligth_data.adrone_state = navdata.ardrone_state;
-        this->ardata.fligth_data.baterry = navdata.block.navdata_demo.baterry;
-        this->ardata.fligth_data.theta = navdata.block.navdata_demo.theta;
-        this->ardata.fligth_data.phi = navdata.block.navdata_demo.psi;
-        this->ardata.fligth_data.psi = navdata.block.navdata_demo.psi;
-        this->ardata.fligth_data.altitude = navdata.block.navdata_demo.altitude;
-        this->ardata.fligth_data.pression = navdata.block.navdata_pressure_raw.pression_meas;
+        this->ardata.fligth_data.sequence = this->navdata.sequence;
+        this->ardata.fligth_data.adrone_state = this->navdata.ardrone_state;
+        this->ardata.fligth_data.baterry = this->navdata.block.navdata_demo.baterry;
+        this->ardata.fligth_data.theta = this->navdata.block.navdata_demo.theta;
+        this->ardata.fligth_data.phi = this->navdata.block.navdata_demo.psi;
+        this->ardata.fligth_data.psi = this->navdata.block.navdata_demo.psi;
+        this->ardata.fligth_data.altitude = this->navdata.block.navdata_demo.altitude;
+        this->ardata.fligth_data.pression = this->navdata.block.navdata_pressure_raw.pression_meas;
         
-        this->ardata.fligth_data.v.x = navdata.block.navdata_demo.vx;
-        this->ardata.fligth_data.v.y = navdata.block.navdata_demo.vy;
-        this->ardata.fligth_data.v.z = navdata.block.navdata_demo.vz;
+        this->ardata.fligth_data.v.x = this->navdata.block.navdata_demo.vx;
+        this->ardata.fligth_data.v.y = this->navdata.block.navdata_demo.vy;
+        this->ardata.fligth_data.v.z = this->navdata.block.navdata_demo.vz;
         
-        this->ardata.fligth_data.phys_accs = navdata.block.navdata_phys_measures.phys_accs;
-        this->ardata.fligth_data.phys_gyros = navdata.block.navdata_phys_measures.phys_gyros;
+        this->ardata.fligth_data.phys_accs = this->navdata.block.navdata_phys_measures.phys_accs;
+        this->ardata.fligth_data.phys_gyros = this->navdata.block.navdata_phys_measures.phys_gyros;
         
-        this->ardata.fligth_data.wind_speed = navdata.block.navdata_wind_speed.wind_speed;
-        this->ardata.fligth_data.wind_angle = navdata.block.navdata_wind_speed.wind_angle;
+        this->ardata.fligth_data.wind_speed = this->navdata.block.navdata_wind_speed.wind_speed;
+        this->ardata.fligth_data.wind_angle = this->navdata.block.navdata_wind_speed.wind_angle;
         
-        this->ardata.fligth_data.motor[0] = navdata.block.navdata_pwm.motor1;
-        this->ardata.fligth_data.motor[1] = navdata.block.navdata_pwm.motor2;
-        this->ardata.fligth_data.motor[2] = navdata.block.navdata_pwm.motor3;
-        this->ardata.fligth_data.motor[3] = navdata.block.navdata_pwm.motor4;
+        this->ardata.fligth_data.motor[0] = this->navdata.block.navdata_pwm.motor1;
+        this->ardata.fligth_data.motor[1] = this->navdata.block.navdata_pwm.motor2;
+        this->ardata.fligth_data.motor[2] = this->navdata.block.navdata_pwm.motor3;
+        this->ardata.fligth_data.motor[3] = this->navdata.block.navdata_pwm.motor4;
         
-        this->ardata.fligth_data.link_quality = navdata.block.navdata_wifi.link_quality;
+        this->ardata.fligth_data.link_quality = this->navdata.block.navdata_wifi.link_quality;
         
-        this->ardata.fligth_data.latitude = navdata.block.navdata_gps.latitude;
-        this->ardata.fligth_data.longitude = navdata.block.navdata_gps.longitude;
-        this->ardata.fligth_data.elevation = navdata.block.navdata_gps.elevation;
-        this->ardata.fligth_data.gps_state = navdata.block.navdata_gps.gps_state;
-        this->ardata.fligth_data.nbsat = navdata.block.navdata_gps.nbsat;
-      // ardata->fligth_data.altitude = navdata.block.navdata_demo.altitude;
+        this->ardata.fligth_data.latitude = this->navdata.block.navdata_gps.latitude;
+        this->ardata.fligth_data.longitude = this->navdata.block.navdata_gps.longitude;
+        this->ardata.fligth_data.elevation = this->navdata.block.navdata_gps.elevation;
+        this->ardata.fligth_data.gps_state = this->navdata.block.navdata_gps.gps_state;
+        this->ardata.fligth_data.nbsat = this->navdata.block.navdata_gps.nbsat;
+      // ardata->fligth_data.altitude = this->navdata.block.navdata_demo.altitude;
     
 //       Serial.print("Sinal Wifi:\t");
-//       Serial.print(navdata.block.navdata_wifi.link_quality);
+//       Serial.print(this->navdata.block.navdata_wifi.link_quality);
 //       Serial.print("\n");
       
 //       Serial.print("Estado:\t");
-//       Serial.print(navdata.block.navdata_demo.ctrl_state);
+//       Serial.print(this->navdata.block.navdata_demo.ctrl_state);
 //       Serial.print("\n");
 
 //       Serial.print("Altitude Relativa:\t");
-//       Serial.print(navdata.block.navdata_demo.altitude);
+//       Serial.print(this->navdata.block.navdata_demo.altitude);
 //       Serial.print("\n");
 
       // Serial.print("Sequencia:\t");
@@ -471,35 +471,35 @@ class ArdroneControl{
       // Serial.print("\n");
       
       // Serial.print("Nivel Bateria:\t");
-      // Serial.print(navdata.block.navdata_demo.baterry);
+      // Serial.print(this->navdata.block.navdata_demo.baterry);
       // Serial.print("\n");
       
       // Serial.print("Pressão:\t");  
-      // Serial.print(navdata.block.navdata_pressure_raw.pression_meas);
+      // Serial.print(this->navdata.block.navdata_pressure_raw.pression_meas);
       // Serial.print("\n");  
       // Serial.print("Latitude:\t");
-      // Serial.print(navdata.block.navdata_gps.latitude, 8);
+      // Serial.print(this->navdata.block.navdata_gps.latitude, 8);
       // Serial.print("\n");
       
       // Serial.print("Longitude:\t");
-      // Serial.print(navdata.block.navdata_gps.longitude, 8);
+      // Serial.print(this->navdata.block.navdata_gps.longitude, 8);
       // Serial.print("\n");
       
       // Serial.print("Elevação:\t");
-      // Serial.print(navdata.block.navdata_gps.elevation, 8);
+      // Serial.print(this->navdata.block.navdata_gps.elevation, 8);
       // Serial.print("\n");
       
       // Serial.print("Numero de Satelites:\t");
-      // Serial.print(navdata.block.navdata_gps.nbsat);
+      // Serial.print(this->navdata.block.navdata_gps.nbsat);
       // Serial.print("\n");
       // Serial.print("\n\n");    
       
 //       Serial.print("Quantidade Video:\t");
-//       Serial.println(navdata.block.navdata_video_stream.quant);
-//       Serial.println(navdata.block.navdata_video_stream.frame_size);
-//       Serial.println(navdata.block.navdata_video_stream.frame_number);
-//       Serial.println(navdata.block.navdata_video_stream.out_bitrate);
-// //      Serial.println(navdata.block.navdata_video_stream.frame_size);
+//       Serial.println(this->navdata.block.navdata_video_stream.quant);
+//       Serial.println(this->navdata.block.navdata_video_stream.frame_size);
+//       Serial.println(this->navdata.block.navdata_video_stream.frame_number);
+//       Serial.println(this->navdata.block.navdata_video_stream.out_bitrate);
+// //      Serial.println(this->navdata.block.navdata_video_stream.frame_size);
       
       
       
