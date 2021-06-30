@@ -42,8 +42,8 @@ void rfdata(){
 
     check = "";
     ardrone.navData();
-    // ardrone.VideoStream();
-    data = ardrone.get_ardata();
+    // ardrone.videoStream();
+    data = ardrone.getArdata();
 
     memcpy(&buffer[0], &data, len);
     // Serial.println(sizeof(ardata_t));

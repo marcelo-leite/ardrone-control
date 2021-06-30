@@ -86,11 +86,11 @@ class ArdroneControl{
 
       // ardata.video_data = &pave; 
     }
-    ardata_t get_ardata(){
+    ardata_t getArdata(){
       return this->ardata;
     }
 
-    void VideoStream(void){
+    void videoStream(void){
       String vID;
 
       char buffer_payload[6144] = {};
@@ -101,7 +101,7 @@ class ArdroneControl{
                 int i = 0;
                 while( i < 10000){
                   if(this->Video.available()){
-                    stream[i] = this->Video.read();
+                    this->stream[i] = this->Video.read();
                     i++;
                   }
 
@@ -307,10 +307,10 @@ class ArdroneControl{
 
     void navData(){
 //      uint32_t nbsat;
-      this->navdata.head = *((int32_t*)&incoming[0]);
-      this->navdata.ardrone_state = *((int32_t*)&incoming[4]);
-      this->navdata.sequence = *((int32_t*)&incoming[8]);
-      this->navdata.vision = *((int32_t*)&incoming[12]); 
+      this->navdata.head = *((int32_t*)&this->incoming[0]);
+      this->navdata.ardrone_state = *((int32_t*)&this->incoming[4]);
+      this->navdata.sequence = *((int32_t*)&this->incoming[8]);
+      this->navdata.vision = *((int32_t*)&this->incoming[12]); 
       int len = 0;
       uint16_t k = 16;
       
@@ -507,7 +507,7 @@ class ArdroneControl{
 
   
       if (millis() - this->lastSend >= 40) {
-        comwdgCommand();
+        this->comwdgCommand();
         this->lastSend = millis();
       }
 //      delay(500);
