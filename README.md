@@ -103,7 +103,7 @@ Add additional notes about how to deploy this on a live system.
 
 ## ✍️ Authors <a name = "authors"></a>
 
-- [@Marcelo-Leite](https://github.com/marcelo-leite) - 
+- [@Marcelo-Leite](https://github.com/marcelo-leite) - Electrical Engineering Student
 
 See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
 
