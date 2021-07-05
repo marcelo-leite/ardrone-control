@@ -97,7 +97,7 @@ Add additional notes about how to deploy this on a live system.
 ## ⛏️ Built Using <a name = "built_using"></a>
 
 - [PlatformIO](https://platformio.org/) - Embedded Development
-- [Ardunino](https://www.arduino.cc/reference/) - Arduino programming language
+- [Arduino](https://www.arduino.cc/reference/) - Arduino programming language
 
 ## ✍️ Authors <a name = "authors"></a>
 
