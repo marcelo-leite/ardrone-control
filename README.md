@@ -34,7 +34,7 @@
 
 ## 🧐 About <a name = "about"></a>
 
-Write about 1-2 paragraphs describing the purpose of your project.
+API for communication with platform Arduino ESP8266 and ARDrone v2.0. (Adaptation ArdroneLib SDK).
 
 ## 🏁 Getting Started <a name = "getting_started"></a>
 
@@ -96,10 +96,7 @@ Add additional notes about how to deploy this on a live system.
 
 ## ⛏️ Built Using <a name = "built_using"></a>
 
-- [MongoDB](https://www.mongodb.com/) - Database
-- [Express](https://expressjs.com/) - Server Framework
-- [VueJs](https://vuejs.org/) - Web Framework
-- [NodeJs](https://nodejs.org/en/) - Server Environment
+- [PlatformIO](https://platformio.org/) - Embedded Development
 
 ## ✍️ Authors <a name = "authors"></a>
 
