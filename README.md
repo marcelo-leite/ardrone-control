@@ -5,7 +5,7 @@
 
 <h3 align="center">Ardrone Control</h3>
 
-<div align="center">
+<div class="display: flex;">
 
 [![Status](https://img.shields.io/badge/status-active-success.svg)]()
 <!-- [![GitHub Issues](https://img.shields.io/github/issues/kylelobo/The-Documentation-Compendium.svg)](https://github.com/marcelo-leite/ardrone-control/issues) -->
