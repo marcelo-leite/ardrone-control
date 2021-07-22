@@ -74,28 +74,15 @@ class ArdroneControl{
       
       strncpy(this->ardata.signature, "NAVDATA", 7);
 
-      
-      // ardata.fligth_data = &fligth_data;
-      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
-      // ardata.fligth_data->baterry = &this->navdata.block.navdata_demo.baterry;
-      
-
-
-      // ardata.video_data = &pave; 
     }
-    ardata_t getArdata(){
+    ardata_t getArdata(void){
       return this->ardata;
     }
 
     void videoStream(void){
-      String vID;
+      String signature;
 
       char buffer_payload[6144] = {};
-      // Serial.print("Iniciando Video\n\n");
-      // Serial.printf("\n[Connecting to %s ... ", "192.168.1.1");
          while (this->Video.connect("192.168.1.1", this->videoPort)){
                 // Video.readBytes(stream,5000);
                 int i = 0;
@@ -111,8 +98,8 @@ class ArdroneControl{
               
                 // memcpy(&pave, &stream[0], sizeof(PaVE_t));
                 
-                vID = String(*((char*)&this->stream[0])) + String(*((char*)&this->stream[1])) + String(*((char*)&this->stream[2])) + String(*((char*)&this->stream[3]));
-                if(vID == "PaVE"){
+                signature = String(*((char*)&this->stream[0])) + String(*((char*)&this->stream[1])) + String(*((char*)&this->stream[2])) + String(*((char*)&this->stream[3]));
+                if(signature == "PaVE"){
                   memcpy(&this->ardata.pave, &this->stream[0], sizeof(PaVE_t));
                   // for(uint32_t i =0; i < ardata.pave.payload_size; i++){
                   //   buffer_payload[i] = stream[i + 64];
@@ -121,16 +108,16 @@ class ArdroneControl{
                   // Serial.println("pronto");
              
                   // Serial.println(vID);
-                  Serial.println(this->ardata.pave.encoded_stream_width);
-                  Serial.println(this->ardata.pave.encoded_stream_height);
+                  // Serial.println(this->ardata.pave.encoded_stream_width);
+                  // Serial.println(this->ardata.pave.encoded_stream_height);
                   // Serial.println(pave.frame_number);
-                  Serial.println(this->ardata.pave.payload_size);
+                  // Serial.println(this->ardata.pave.payload_size);
                   // Serial.println(pave.video_codec);
                   // Serial.println(pave.versions);
                   // Serial.println("\n\n");
-//                  delay(200);
+                  // delay(200);
                 }
-//            }
+
           }
        
 
@@ -144,7 +131,7 @@ class ArdroneControl{
       
     }
 
-    
+    // Init conection with aircraft ARDrone 2.0
     void ArdroneConnect(void) {
       // Connect to WiFi network
       Serial.println("\n\n\nconnecting to AR WiFi");
@@ -185,7 +172,7 @@ class ArdroneControl{
       }
       littlecounter = millis();
     }
-    
+    // Serialize commands arguments in AT Command 
     void serialize(ATCommand command, int Nargs){
       String serialized;
       String argument;
@@ -198,7 +185,8 @@ class ArdroneControl{
       this->sendPacket(serialized);
        
     }
-    
+
+    // Send Packet in UDP 
     void sendPacket(String command) {
       
       char sendChar[command.length() + 1];
@@ -212,6 +200,7 @@ class ArdroneControl{
       this->lastSend = millis();
     }
     
+    // Method use to action of takeoff, land and emergency
     bool refCommand(bool takeoff, bool emergency) {
       ATCommand command;
       command.type = "REF";
@@ -225,10 +214,9 @@ class ArdroneControl{
         }
       }
       this->serialize(command, 1);
-//      Serial.print("\n");
       return true;
     }
-    
+    // Method use control velocity linear x, y, z and velocity angular z or action hover.
     bool pcmdCommand(bool mode, float vel[4]){
       ATCommand command;
       command.type = "PCMD";
@@ -293,12 +281,14 @@ class ArdroneControl{
       this->serialize(command, 2);
     }
     
-    bool land(){
-      return this->refCommand(false, false);
+    void land(){
+      this->refCommand(false, false);
+      delay(5000);
     }
     
-    bool takeoff(){
-      return this->refCommand(true, false);
+    void takeoff(){
+      this->refCommand(true, false);
+      // delay(5000);
     }
     
     bool emergency(){
@@ -425,8 +415,11 @@ class ArdroneControl{
         this->ardata.fligth_data.adrone_state = this->navdata.ardrone_state;
         this->ardata.fligth_data.baterry = this->navdata.block.navdata_demo.baterry;
         this->ardata.fligth_data.theta = this->navdata.block.navdata_demo.theta;
-        this->ardata.fligth_data.phi = this->navdata.block.navdata_demo.psi;
+        this->ardata.fligth_data.phi = this->navdata.block.navdata_demo.phi;
         this->ardata.fligth_data.psi = this->navdata.block.navdata_demo.psi;
+        // this->ardata.fligth_data.psi = this->navdata.block.navdata_gps.degree;
+
+
         this->ardata.fligth_data.altitude = this->navdata.block.navdata_demo.altitude;
         this->ardata.fligth_data.pression = this->navdata.block.navdata_pressure_raw.pression_meas;
         

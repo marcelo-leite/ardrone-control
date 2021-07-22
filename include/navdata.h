@@ -53,7 +53,7 @@ typedef struct {
   uint32_t    ctrl_state;             /*!< Flying state (landed, flying, hovering, etc.) defined in CTRL_STATES enum. */
   uint32_t    baterry; /*!< battery voltage filtered (mV) */
 
-  float   theta;                  /*!< UAV's pitch in milli-degrees */
+  float   theta;                   /*!< UAV's pitch in milli-degrees */
   float   phi;                    /*!< UAV's roll  in milli-degrees */
   float   psi;                    /*!< UAV's yaw   in milli-degrees */
 

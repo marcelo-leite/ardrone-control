@@ -1,5 +1,6 @@
 #include "ardrone-control.cpp"
-#include "PID.cpp"
+ArdroneControl ardrone; 
+
 typedef struct{
   
   char ass[3];
@@ -10,35 +11,20 @@ typedef struct{
 
 class RFControl{
     public:
-        ArdroneControl ardrone;
-        PIDControl pid_wz; 
-        PIDControl pid_vz;
+        ArdroneControl ardrone; 
         ardata_t data;
         char buffer[512];
         String check;
         int len;
 
         RFControl(void){
-            this->check = "";
-            this->len = sizeof(ardata_t);
-            // PID WZ 
-            this->pid_wz.setLimits(-0.5,0.5);
-            this->pid_wz.setTunings(1,0.15,0);
-
-            // PID VZ
-
-            
             
         }
         // Send data navegation of ardrone per RF.
-        void reqData(void){
-            this->ardrone.navData();
-            this->data = this->ardrone.getArdata();
-        }
         void sendData(void){
             this->check = "";
             this->ardrone.navData();
-            // this->ardrone.videoStream();
+            this->ardrone.videoStream();
             this->data = this->ardrone.getArdata();
             memcpy(&this->buffer[0], &this->data, sizeof(data));
 
@@ -46,13 +32,13 @@ class RFControl{
                 check.concat((char)this->buffer[j]);
             }
 
-            if(this->check == "NAVDATA"){
+            if(check == "NAVDATA"){
                 for(int i=0; i < len; i++){
                     Serial.write(buffer[i]);       
                 }
                 Serial.flush();
             }
-            // delay(100);
+            delay(100);
         }
         // Receive struct command control
         void receiveData(void){
@@ -149,16 +135,12 @@ class RFControl{
                 v[2] = *((float*)&vbuffer[8]);
                 v[3] = *((float*)&vbuffer[12]);
                 for(i = 0; i < 4; i++){
-                    Serial.println(v[i]);
                     if(v[i] == 0.0){
-                        
                         hover[i] = true ;  
-                    }else{
-                        hover[i] = false ;
                     }
                 }
-                move = !(hover[0] && hover[1] && hover[2] && hover[3]);
-                
+                move = !(hover[0] || hover[1] || hover[2] || hover[3]);
+
                 if(move){
                     Serial.println("Movendo-se");
                 }else{
@@ -167,33 +149,10 @@ class RFControl{
                 this->ardrone.pcmdCommand(move, v);
                 
                 // Serial.println("Controle");
-            }else if(type == "ROTZ"){
-                
-
             }
         }
 
-        
-        void control_wz(float setpoint){
-            float v[4], temp, input, sp;
-            v[0] = 0.0;
-            v[1] = 0.0;
-            v[2] = 0.0;
-            
-            temp = this->data.fligth_data.psi/1000.0 ;
-            input = radians(temp);
-            sp = radians(setpoint);
-            Serial.println(temp);
-            v[3] = this->pid_wz.compute(input, sp);
-            this->ardrone.pcmdCommand(true, v);
-        }
-        // Comandos de Emergencia
-        void secureHealth(void){
-            if(this->data.fligth_data.altitude > 3000){
-                this->ardrone.land();
-                delay(5000);
-            }
-        }
+
 
 
 };
