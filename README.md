@@ -29,7 +29,8 @@
 - [Built Using](#built_using)
 - [TODO](../TODO.md)
 - [Contributing](../CONTRIBUTING.md)
-- [Authors](#authors)
+- [Author](#author)
+- [Mentor](#mentor)
 - [Acknowledgments](#acknowledgement)
 
 ## 🧐 About <a name = "about"></a>
@@ -99,9 +100,11 @@ Add additional notes about how to deploy this on a live system.
 - [PlatformIO](https://platformio.org/) - Embedded Development
 - [Arduino](https://www.arduino.cc/reference/) - Arduino programming language
 
-## ✍️ Authors <a name = "authors"></a>
+## ✍️ Author <a name = "author"></a>
 
 - [@Marcelo-Leite](https://github.com/marcelo-leite) - Electrical Engineering Student
+
+## ✍️ Mentor <a name = "mentor"></a>
 - [@Selmo-Eduardo](https://github.com/selmoeduardo) - MSc Electrical Engineering
 
 See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
