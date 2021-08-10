@@ -104,7 +104,7 @@ Add additional notes about how to deploy this on a live system.
 
 - [@Marcelo-Leite](https://github.com/marcelo-leite) - Electrical Engineering Student
 
-## ✍️ Mentor <a name = "mentor"></a>
+## 👨‍🏫 Mentor <a name = "mentor"></a>
 - [@Selmo-Eduardo](https://github.com/selmoeduardo) - MSc Electrical Engineering
 
 See also the list of [contributors](https://github.com/kylelobo/The-Documentation-Compendium/contributors) who participated in this project.
