@@ -1,0 +1,26 @@
+{
+    "name": "ardrone-esprf",
+    "version": "1.0.0",
+    "description": "Integration bettwen ArdroneESP API and Transceiver RF to incremment ranger control of ARDrone 2.0",
+    "keywords": "api, arduino-library, ardrone",
+    "repository":
+    {
+      "type": "git",
+      "url": "https://github.com/marcelo-leite/ardrone-esprf.git"
+    },
+    "authors":
+    [
+      {
+        "name": "Marcelo Leite",
+        "email": "leite_marcelo@outlook.com",
+        "url": "https://github.com/marcelo-leite"
+      }
+    ],
+    "license": "BSD-3",
+    "dependencies": {
+
+    },
+    "frameworks": "arduino",
+    "platforms": "espressif8266"
+  }
+  

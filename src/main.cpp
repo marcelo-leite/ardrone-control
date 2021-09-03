@@ -1,17 +1,18 @@
-#include "rf-control.cpp"
+#include <ardrone-esprf.h>
 
-RFControl rfcontrol;
+ArdroneESPRF rfcontrol;
 void setup() {
   Serial.begin(56700);
-  rfcontrol.ardrone.ArdroneConnect();
+  rfcontrol.ardrone.ardroneConnect();
   
 }
 
 void loop() {
   while (WiFi.status() == WL_CONNECTED) {
       // rfcontrol.sendData();
-      rfcontrol.reqData();
-      rfcontrol.secureHealth();
+      // rfcontrol.ardrone.takeoff();
+      rfcontrol.captureData();
+      // rfcontrol.secureHealth();
       // if(rfcontrol.data.fligth_data.adrone_state & 1){
       //   // rfcontrol.control_wz(60.0);
       //   Serial.print("Voando");
@@ -20,9 +21,9 @@ void loop() {
       //   Serial.print("Aterrissado");
       // }
       
-      if(Serial.available()){
-        rfcontrol.receiveData();
-      }
+      // if(Serial.available()){
+      //   rfcontrol.receiveData();
+      // }
       // rfcontrol.control_wz(120.0);
       
       // Serial.println(rfcontrol.ardrone.getArdata().fligth_data.psi);
@@ -30,7 +31,7 @@ void loop() {
   }
  
   Serial.println("disconnected from AR, attempting to reconnect");
-  rfcontrol.ardrone.ArdroneConnect();
+  rfcontrol.ardrone.ardroneConnect();
 
   // if(Serial.available()){
   //   rfcontrol.receiveData();

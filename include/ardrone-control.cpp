@@ -459,24 +459,24 @@ class ArdroneControl{
 //       Serial.print(this->navdata.block.navdata_demo.altitude);
 //       Serial.print("\n");
 
-      // Serial.print("Sequencia:\t");
-      // Serial.print(navdata.sequence);
-      // Serial.print("\n");
+      Serial.print("Sequencia:\t");
+      Serial.print(navdata.sequence);
+      Serial.print("\n");
       
-      // Serial.print("Nivel Bateria:\t");
-      // Serial.print(this->navdata.block.navdata_demo.baterry);
-      // Serial.print("\n");
+      Serial.print("Nivel Bateria:\t");
+      Serial.print(this->navdata.block.navdata_demo.baterry);
+      Serial.print("\n");
       
       // Serial.print("Pressão:\t");  
       // Serial.print(this->navdata.block.navdata_pressure_raw.pression_meas);
       // Serial.print("\n");  
-      // Serial.print("Latitude:\t");
-      // Serial.print(this->navdata.block.navdata_gps.latitude, 8);
-      // Serial.print("\n");
+      Serial.print("Latitude:\t");
+      Serial.print(this->navdata.block.navdata_gps.latitude, 8);
+      Serial.print("\n");
       
-      // Serial.print("Longitude:\t");
-      // Serial.print(this->navdata.block.navdata_gps.longitude, 8);
-      // Serial.print("\n");
+      Serial.print("Longitude:\t");
+      Serial.print(this->navdata.block.navdata_gps.longitude, 8);
+      Serial.print("\n");
       
       // Serial.print("Elevação:\t");
       // Serial.print(this->navdata.block.navdata_gps.elevation, 8);
@@ -486,6 +486,12 @@ class ArdroneControl{
       // Serial.print(this->navdata.block.navdata_gps.nbsat);
       // Serial.print("\n");
       // Serial.print("\n\n");    
+      Serial.print("Magnometro:\n");
+      Serial.println(this->navdata.block.navdata_magneto.mx);
+      Serial.println(this->navdata.block.navdata_magneto.my);
+      Serial.println(this->navdata.block.navdata_magneto.mz);
+      Serial.print("\n");
+      Serial.print("\n\n"); 
       
 //       Serial.print("Quantidade Video:\t");
 //       Serial.println(this->navdata.block.navdata_video_stream.quant);

@@ -1,4 +1,4 @@
-#include "ardrone-control.cpp"
+#include "ardrone-esp.h"
 #include "PID.cpp"
 typedef struct{
   
@@ -10,7 +10,7 @@ typedef struct{
 
 class RFControl{
     public:
-        ArdroneControl ardrone;
+        ArdroneESP ardrone;
         PIDControl pid_wz; 
         PIDControl pid_vz;
         ardata_t data;
@@ -31,13 +31,13 @@ class RFControl{
             
         }
         // Send data navegation of ardrone per RF.
-        void reqData(void){
-            this->ardrone.navData();
+        void captureData(void){
+            this->ardrone.captureNavdata();
             this->data = this->ardrone.getArdata();
         }
         void sendData(void){
             this->check = "";
-            this->ardrone.navData();
+            this->ardrone.captureNavdata();
             // this->ardrone.videoStream();
             this->data = this->ardrone.getArdata();
             memcpy(&this->buffer[0], &this->data, sizeof(data));
