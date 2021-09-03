@@ -1,0 +1,3 @@
+[submodule "lib/ardrone-esp"]
+	path = lib/ardrone-esp
+	url = https://github.com/marcelo-leite/ardrone-esp.git
