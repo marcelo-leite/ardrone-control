@@ -9,12 +9,17 @@ void setup() {
 
 void loop() {
   while (WiFi.status() == WL_CONNECTED) {
-      // rfcontrol.sendData();
+      // 
       // rfcontrol.ardrone.takeoff();
       // delay(10000);
       // rfcontrol.ardrone.takeoff();
+      // rfcontrol.ardrone.emergency();
       while (WiFi.status() == WL_CONNECTED) {
-        rfcontrol.captureData();
+        // rfcontrol.captureData();
+        rfcontrol.sendData();
+        if(Serial.available()){
+          rfcontrol.receiveData();
+        }
         // rfcontrol.secureHealth();
         // if(rfcontrol.data.fligth_data.adrone_state & 1){
         //   // rfcontrol.control_wz(60.0);
@@ -30,7 +35,7 @@ void loop() {
         // rfcontrol.control_wz(120.0);
         
         // Serial.println(rfcontrol.ardrone.getArdata().fligth_data.psi);
-        delay(200);
+        delay(100);
       }
   }
  

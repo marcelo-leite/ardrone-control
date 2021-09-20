@@ -142,11 +142,11 @@ void ArdroneESPRF::commandSwitch(char cmd[]){
         }
         move = !(hover[0] && hover[1] && hover[2] && hover[3]);
         
-        if(move){
-            Serial.println("Movendo-se");
-        }else{
-            Serial.println("Parado");
-        }
+        // if(move){
+        //     Serial.println("Movendo-se");
+        // }else{
+        //     Serial.println("Parado");
+        // }
         this->ardrone.pcmdCommand(move, v);
         
         // Serial.println("Controle");
